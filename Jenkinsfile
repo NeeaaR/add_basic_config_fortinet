@@ -31,7 +31,7 @@ properties ([
 ])
 
 ansiColor('xterm') {
-    node('maître') {
+    node('Jenkins') {
         WORKSPACE = "${WORKSPACE}/{BUILD_TAG}"
         ws("${WORKSPACE}") {
 
