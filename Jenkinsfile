@@ -1,12 +1,15 @@
-properties ([
+pipeline {
+    agent any
+
     parameters([
         string(name: 'hostname', defaultValue: 'master', description: 'Hostname de l equipement'),
         string(name: 'ip_address', defaultValue: '5.5.5.5', description: 'IP de l equipement'),
         string(name: 'site', defaultValue: 'SIVM', description: 'Site de l equipement'),
         string(name: 'rack', defaultValue: 'BXNEF2500', description: 'Rack de l equipement'),
         string(name: 'position', defaultValue: '24', description: 'Position de l equipement'),
+        string(name: 'vpc', defaultValue: 'NO', description: 'VPC'),
 
-        activeChoice(choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'vpc', randomName: 'choice-parameter-3291913559104882', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: 'return["error"]'], script: [classpath: [], oldScript: '', sandbox: false, script: 'return["YES","NO"]'])), activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', name: 'vpc_slave', omitValueField: false, randomName: 'choice-parameter-3291913565760138', referencedParameters: 'vpc', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: 'return["error"]'], script: [classpath: [], oldScript: '', sandbox: false, script: '''switch(vpc){
+        activeChoice(choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'vpc', randomName: 'choice-parameter-3292938564692765', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: 'return["error"]'], script: [classpath: [], oldScript: '', sandbox: false, script: 'return["YES","NO"]'])), activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', description: 'vpc ou pas', name: 'vpc_slave', omitValueField: true, randomName: 'choice-parameter-3292938571550023', referencedParameters: 'vpc', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: 'return["error"]'], script: [classpath: [], oldScript: '', sandbox: false, script: '''switch(vpc){
 
         case "YES":
         html=\'\'\'
@@ -26,32 +29,40 @@ properties ([
         }
 
         return html''']))
+
     ])
-])
 
-ansiColor('xterm') {
-        WORKSPACE = "${WORKSPACE}/{BUILD_TAG}"
-        ws("${WORKSPACE}") {
+    stages {
+        stage('Checkout') {
+            steps {
+                // Cloner le dépôt (ceci est implicite si vous utilisez une source de code intégrée à Jenkins)
+                checkout scm
 
-            stage('Preparation') {
-                sh 'echo "Preparation"'
-                sh 'echo "Hostname : ${hostname}"'
-                sh 'echo "IP : ${ip_address}"'
-                sh 'echo "Site : ${site}"'
-                sh 'echo "Rack : ${rack}"'
-                sh 'echo "Position : ${position}"'
-                sh 'echo "VPC : ${vpc}"'
-                sh 'echo "VPC slave : ${vpc_slave}"'
+                sh 'sleep 30'
             }
-
-            stage('Cleanup') {
-                try {
-                    cleanWS notFailBuild: true
-                } catch (err) {
-                    echo "Error cleaning workspace: ${err}"
-                    currentBuild.result = 'FAILURE'
-                }
-            }
-
         }
+
+        stage('Fortinet') {
+            steps {
+                // Exécutez un script de test fictif. Adaptez ceci selon ce que vous avez dans votre dépôt.
+                sh 'python3 test_script.py'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Exécutez un script de construction fictif. Adaptez ceci selon ce que vous avez dans votre dépôt.
+                sh 'python3 build_script.py'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Les étapes se sont terminées avec succès!"
+        }
+        failure {
+            echo "Une étape a échoué."
+        }
+    }
 }
