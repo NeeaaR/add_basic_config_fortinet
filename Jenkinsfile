@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    parameters([
+    parameters {
         string(name: 'hostname', defaultValue: 'master', description: 'Hostname de l equipement'),
         string(name: 'ip_address', defaultValue: '5.5.5.5', description: 'IP de l equipement'),
         string(name: 'site', defaultValue: 'SIVM', description: 'Site de l equipement'),
@@ -30,7 +30,8 @@ pipeline {
 
         return html''']))
 
-    ])
+    }
+
 
     stages {
         stage('Checkout') {
