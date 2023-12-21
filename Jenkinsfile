@@ -36,25 +36,24 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            try {
-                def hostname = params.hostname
-                def ip_address = params.ip_address
-                def site = params.site
-                def rack = params.rack
-                def position = params.position
-                def vpc = params.vpc
-                def vpc_slave = params.vpc_slave
+            steps {
+                // Cloner le dépôt (ceci est implicite si vous utilisez une source de code intégrée à Jenkins)
+                checkout scm
+                
+                // Ajouter les commandes echo ici pour afficher les valeurs des paramètres
+                echo "Hostname: ${params.hostname}"
+                echo "IP Address: ${params.ip_address}"
+                echo "Site: ${params.site}"
+                echo "Rack: ${params.rack}"
+                echo "Position: ${params.position}"
+                echo "VPC: ${params.vpc}"
 
-                echo "Hostname: ${hostname}"
-                echo "IP: ${ip_address}"
-                echo "Site: ${site}"
-                echo "Rack: ${rack}"
-                echo "Position: ${position}"
-                echo "VPC: ${vpc}"
-                echo "VPC Slave: ${vpc_slave}"
-            }
-            catch (err) {
-                echo "Erreur: ${err}"
+                // Si vpc est "YES", affichez aussi vpc_slave
+                script {
+                    if (params.vpc == "YES") {
+                        echo "VPC Slave: ${params.vpc_slave}"
+                    }
+                }
             }
         }
 
