@@ -7,7 +7,6 @@ pipeline {
         string(name: 'site', defaultValue: 'SIVM', description: 'Site de l equipement')
         string(name: 'rack', defaultValue: 'BXNEF2500', description: 'Rack de l equipement')
         string(name: 'position', defaultValue: '24', description: 'Position de l equipement')
-        string(name: 'vpc', defaultValue: 'NO', description: 'VPC')
 
         activeChoice(choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'vpc', randomName: 'choice-parameter-3293278730731951', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''], script: [classpath: [], oldScript: '', sandbox: false, script: 'return["YES","NO"]'])) 
         activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', name: 'vpc_slave', omitValueField: true, randomName: 'choice-parameter-3293280698580322', referencedParameters: 'vpc', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''], script: [classpath: [], oldScript: '', sandbox: false, script: '''switch(vpc){
@@ -39,7 +38,7 @@ pipeline {
             steps {
                 // Cloner le dépôt (ceci est implicite si vous utilisez une source de code intégrée à Jenkins)
                 checkout scm
-                
+
                 // Ajouter les commandes echo ici pour afficher les valeurs des paramètres
                 echo "Hostname: ${params.hostname}"
                 echo "IP Address: ${params.ip_address}"
