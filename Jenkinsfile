@@ -5,7 +5,6 @@ properties ([
         string(name: 'site', defaultValue: 'SIVM', description: 'Site de l equipement'),
         string(name: 'rack', defaultValue: 'BXNEF2500', description: 'Rack de l equipement'),
         string(name: 'position', defaultValue: '24', description: 'Position de l equipement'),
-        string(name: 'vpc', defaultValue: 'NO', description: 'VPC'),
 
         activeChoice(choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'vpc', randomName: 'choice-parameter-3291913559104882', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: 'return["error"]'], script: [classpath: [], oldScript: '', sandbox: false, script: 'return["YES","NO"]'])), activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', name: 'vpc_slave', omitValueField: false, randomName: 'choice-parameter-3291913565760138', referencedParameters: 'vpc', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: 'return["error"]'], script: [classpath: [], oldScript: '', sandbox: false, script: '''switch(vpc){
 
