@@ -36,10 +36,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
-                // Cloner le dépôt (ceci est implicite si vous utilisez une source de code intégrée à Jenkins)
-                checkout scm
-
+            try {
                 def hostname = params.hostname
                 def ip_address = params.ip_address
                 def site = params.site
@@ -55,7 +52,9 @@ pipeline {
                 echo "Position: ${position}"
                 echo "VPC: ${vpc}"
                 echo "VPC Slave: ${vpc_slave}"
-
+            }
+            catch (err) {
+                echo "Erreur: ${err}"
             }
         }
 
