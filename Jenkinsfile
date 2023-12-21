@@ -9,7 +9,7 @@ pipeline {
         string(name: 'position', defaultValue: '24', description: 'Position de l equipement'),
         string(name: 'vpc', defaultValue: 'NO', description: 'VPC'),
 
-        activeChoice(choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'vpc', randomName: 'choice-parameter-3292938564692765', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: 'return["error"]'], script: [classpath: [], oldScript: '', sandbox: false, script: 'return["YES","NO"]'])), activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', description: 'vpc ou pas', name: 'vpc_slave', omitValueField: true, randomName: 'choice-parameter-3292938571550023', referencedParameters: 'vpc', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: 'return["error"]'], script: [classpath: [], oldScript: '', sandbox: false, script: '''switch(vpc){
+        activeChoice(choiceType: 'PT_SINGLE_SELECT', filterLength: 1, filterable: false, name: 'vpc', randomName: 'choice-parameter-3293278730731951', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''], script: [classpath: [], oldScript: '', sandbox: false, script: 'return["YES","NO"]'])), activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', name: 'vpc_slave', omitValueField: true, randomName: 'choice-parameter-3293280698580322', referencedParameters: 'vpc', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''], script: [classpath: [], oldScript: '', sandbox: false, script: '''switch(vpc){
 
         case "YES":
         html=\'\'\'
@@ -20,7 +20,7 @@ pipeline {
         <label>Switch slave</label>
         <p></p>
         <input type="text" class="setting-input"  name="value" placeholder="Rentrer les informations du switch slave sous cette forme => HOSTNAME;IP_ADDRESS;SITE;RACK;POSITION">
-        <p>Rentrer les informations du switch slave sous cette forme => n9ktest1;10.222.240.60;SIVM;BXNEF2500;24</p>
+        <p>Rentrer les informations du switch slave sous cette forme</p>
         \'\'\' 
         break
 
