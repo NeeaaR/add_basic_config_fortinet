@@ -30,7 +30,6 @@ properties ([
 ])
 
 ansiColor('xterm') {
-    node('Jenkins') {
         WORKSPACE = "${WORKSPACE}/{BUILD_TAG}"
         ws("${WORKSPACE}") {
 
@@ -55,5 +54,4 @@ ansiColor('xterm') {
             }
 
         }
-    }
 }
