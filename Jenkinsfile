@@ -40,7 +40,22 @@ pipeline {
                 // Cloner le dépôt (ceci est implicite si vous utilisez une source de code intégrée à Jenkins)
                 checkout scm
 
-                sh 'sleep 10'
+                def hostname = params.hostname
+                def ip_address = params.ip_address
+                def site = params.site
+                def rack = params.rack
+                def position = params.position
+                def vpc = params.vpc
+                def vpc_slave = params.vpc_slave
+
+                echo "Hostname: ${hostname}"
+                echo "IP: ${ip_address}"
+                echo "Site: ${site}"
+                echo "Rack: ${rack}"
+                echo "Position: ${position}"
+                echo "VPC: ${vpc}"
+                echo "VPC Slave: ${vpc_slave}"
+
             }
         }
 
